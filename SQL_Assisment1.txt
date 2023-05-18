@@ -1,0 +1,29 @@
+SELECT e.emp_id, e.emp_name, e.emp_department, p.project_id, p.project_name, a.assignment_id
+FROM Employees e
+INNER JOIN Assignments a ON e.emp_id = a.emp_id
+INNER JOIN Projects p ON a.project_id = p.project_id;
+
+
+
+
+SELECT e.emp_id, e.emp_name, e.emp_department, p.project_id, p.project_name, a.assignment_id
+FROM Employees e
+LEFT OUTER JOIN Assignments a ON e.emp_id = a.emp_id
+LEFT OUTER JOIN Projects p ON a.project_id = p.project_id;
+
+
+
+
+
+SELECT e.emp_id, e.emp_name, e.emp_department, p.project_id, p.project_name, a.assignment_id
+FROM Employees e
+RIGHT OUTER JOIN Assignments a ON e.emp_id = a.emp_id
+RIGHT OUTER JOIN Projects p ON a.project_id = p.project_id;
+
+
+
+
+SELECT e.emp_id, e.emp_name, e.emp_department, p.project_id, p.project_name, a.assignment_id
+FROM Employees e
+FULL OUTER JOIN Assignments a ON e.emp_id = a.emp_id
+FULL OUTER JOIN Projects p ON a.project_id = p.project_id;

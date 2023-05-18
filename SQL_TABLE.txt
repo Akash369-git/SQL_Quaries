@@ -1,0 +1,70 @@
+-- Create Employees table
+CREATE TABLE Employees (
+  emp_id NUMBER,
+  emp_name VARCHAR2(50),
+  emp_department VARCHAR2(50),
+  emp_salary NUMBER,
+  emp_start_date DATE,
+  emp_email VARCHAR2(100),
+  emp_phone VARCHAR2(20),
+  CONSTRAINT pk_employees PRIMARY KEY (emp_id)
+);
+
+-- Insert values into Employees table
+INSERT INTO Employees (emp_id, emp_name, emp_department, emp_salary, emp_start_date, emp_email, emp_phone)
+VALUES (1, 'John Smith', 'HR', 5000, TO_DATE('2022-01-01', 'YYYY-MM-DD'), 'john@example.com', '123-456-7890');
+
+INSERT INTO Employees (emp_id, emp_name, emp_department, emp_salary, emp_start_date, emp_email, emp_phone)
+VALUES (2, 'Jane Doe', 'IT', 6000, TO_DATE('2022-02-01', 'YYYY-MM-DD'), 'jane@example.com', '987-654-3210');
+
+INSERT INTO Employees (emp_id, emp_name, emp_department, emp_salary, emp_start_date, emp_email, emp_phone)
+VALUES (3, 'Mike Johnson', 'Sales', 5500, TO_DATE('2022-03-01', 'YYYY-MM-DD'), 'mike@example.com', '456-789-0123');
+
+select * from Employees;
+
+-- Create Projects table
+CREATE TABLE Projects (
+  project_id NUMBER,
+  project_name VARCHAR2(50),
+  project_status VARCHAR2(50),
+  project_start_date DATE,
+  project_end_date DATE,
+  CONSTRAINT pk_projects PRIMARY KEY (project_id)
+);
+
+-- Insert values into Projects table
+INSERT INTO Projects (project_id, project_name, project_status, project_start_date, project_end_date)
+VALUES (1, 'Project A', 'In Progress', TO_DATE('2022-01-01', 'YYYY-MM-DD'), TO_DATE('2022-06-30', 'YYYY-MM-DD'));
+
+INSERT INTO Projects (project_id, project_name, project_status, project_start_date, project_end_date)
+VALUES (2, 'Project B', 'Completed', TO_DATE('2022-02-01', 'YYYY-MM-DD'), TO_DATE('2022-05-31', 'YYYY-MM-DD'));
+
+INSERT INTO Projects (project_id, project_name, project_status, project_start_date, project_end_date)
+VALUES (3, 'Project C', 'In Progress', TO_DATE('2022-03-01', 'YYYY-MM-DD'), TO_DATE('2022-08-31', 'YYYY-MM-DD'));
+
+select * from Projects;
+
+-- Create Assignments table
+CREATE TABLE Assignments (
+  assignment_id NUMBER,
+  emp_id NUMBER,
+  project_id NUMBER,
+  assignment_start_date DATE,
+  assignment_end_date DATE,
+  CONSTRAINT pk_assignments PRIMARY KEY (assignment_id),
+  CONSTRAINT fk_assignments_employees FOREIGN KEY (emp_id) REFERENCES Employees(emp_id),
+  CONSTRAINT fk_assignments_projects FOREIGN KEY (project_id) REFERENCES Projects(project_id)
+);
+
+-- Insert values into Assignments table
+INSERT INTO Assignments (assignment_id, emp_id, project_id, assignment_start_date, assignment_end_date)
+VALUES (1, 1, 1, TO_DATE('2022-01-01', 'YYYY-MM-DD'), TO_DATE('2022-04-30', 'YYYY-MM-DD'));
+
+INSERT INTO Assignments (assignment_id, emp_id, project_id, assignment_start_date, assignment_end_date)
+VALUES (2, 2, 2, TO_DATE('2022-02-01', 'YYYY-MM-DD'), TO_DATE('2022-05-31', 'YYYY-MM-DD'));
+
+INSERT INTO Assignments (assignment_id, emp_id, project_id, assignment_start_date, assignment_end_date)
+VALUES (3, 3, 1, TO_DATE('2022-03-01', 'YYYY-MM-DD'), TO_DATE('2022-06-30', 'YYYY-MM-DD'));
+
+INSERT INTO Assignments (assignment_id, emp_id, project_id, assignment_start_date, assignment_end_date)
+VALUES (4, 1, 3, TO_DATE('2022-04-01', 'YYYY-MM-DD'), TO_DATE('2022-09-30', 'YYYY-MM-DD'));

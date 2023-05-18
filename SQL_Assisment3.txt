@@ -1,0 +1,49 @@
+CREATE TYPE Item AS OBJECT (
+  item_id NUMBER,
+  item_name VARCHAR2(100),
+  quantity NUMBER
+);
+
+CREATE TYPE ItemList AS TABLE OF Item;
+
+CREATE TABLE Hardware (
+  product_id NUMBER,
+  product_name VARCHAR2(100),
+  items ItemListType
+) NESTED TABLE items STORE AS hardware_items;
+
+CREATE TABLE Software (
+  product_id NUMBER,
+  product_name VARCHAR2(100),
+  items ItemListType
+) NESTED TABLE items STORE AS software_items;
+
+DECLARE
+  v_items ItemListType;
+BEGIN
+  v_items := ItemListType(ItemType(1, 'Item 1', 10), ItemType(2, 'Item 2', 5));
+  INSERT INTO Hardware (product_id, product_name, items)
+  VALUES (1, 'Hardware Product A', v_items);
+
+  v_items := ItemListType(ItemType(3, 'Item 3', 8), ItemType(4, 'Item 4', 3), ItemType(5, 'Item 5', 12));
+  INSERT INTO Hardware (product_id, product_name, items)
+  VALUES (2, 'Hardware Product B', v_items);
+END;
+/
+
+DECLARE
+  v_items ItemListType;
+BEGIN
+  v_items := ItemListType(ItemType(6, 'Item 6', 15), ItemType(7, 'Item 7', 9));
+  INSERT INTO Software (product_id, product_name, items)
+  VALUES (1, 'Software Product A', v_items);
+
+  v_items := ItemListType(ItemType(8, 'Item 8', 6), ItemType(9, 'Item 9', 4), ItemType(10, 'Item 10', 20));
+  INSERT INTO Software (product_id, product_name, items)
+  VALUES (2, 'Software Product B', v_items);
+END;
+/
+
+SELECT product_id, product_name, item.item_id, item.item_name, item.quantity
+FROM Hardware
+CROSS JOIN TABLE(Hardware.items) item;

@@ -1,0 +1,20 @@
+CREATE TABLE YourTable (
+  id NUMBER,
+  timestamp_column TIMESTAMP,
+  -- Add more columns as needed
+);
+
+-- Insert sample data
+INSERT INTO YourTable (id, timestamp_column)
+VALUES (1, TIMESTAMP '2023-05-15 10:30:00');
+
+INSERT INTO YourTable (id, timestamp_column)
+VALUES (2, TIMESTAMP '2023-05-15 12:45:00');
+
+INSERT INTO YourTable (id, timestamp_column)
+VALUES (3, TIMESTAMP '2023-05-16 08:15:00');
+
+-- Query using intervals
+SELECT *
+FROM YourTable
+WHERE timestamp_column >= SYSTIMESTAMP - INTERVAL '1' DAY;

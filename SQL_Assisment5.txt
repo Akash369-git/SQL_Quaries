@@ -1,0 +1,38 @@
+CREATE TABLE sales (
+  department VARCHAR2(50),
+  product VARCHAR2(50),
+  quantity NUMBER
+);
+INSERT INTO sales (department, product, quantity)
+VALUES ('Department A', 'Product 1', 10);
+
+INSERT INTO sales (department, product, quantity)
+VALUES ('Department A', 'Product 2', 15);
+
+INSERT INTO sales (department, product, quantity)
+VALUES ('Department B', 'Product 1', 8);
+
+INSERT INTO sales (department, product, quantity)
+VALUES ('Department B', 'Product 2', 12);
+
+COMMIT;
+
+
+
+
+SELECT department, product, SUM(quantity) AS total_quantity
+FROM sales
+GROUP BY ROLLUP(department, product);
+
+
+
+
+SELECT department, product, SUM(quantity) AS total_quantity
+FROM sales
+GROUP BY CUBE(department, product);
+
+
+
+SELECT department, product, SUM(quantity) OVER (PARTITION BY department) AS total_quantity
+FROM sales;
+

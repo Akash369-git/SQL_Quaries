@@ -1,0 +1,10 @@
+SELECT emp_id, emp_name, emp_department, NULL AS project_id, NULL AS project_name, NULL AS assignment_id
+FROM Employees
+UNION
+SELECT NULL AS emp_id, NULL AS emp_name, NULL AS emp_department, project_id, project_name, NULL AS assignment_id
+FROM Projects
+UNION
+SELECT NULL AS emp_id, NULL AS emp_name, NULL AS emp_department, NULL AS project_id, NULL AS project_name, assignment_id
+FROM Assignments;
+
+
